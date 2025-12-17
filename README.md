@@ -18,6 +18,8 @@ UIAP KEYERをch32fun環境に移植したものです。ハードウェアや開
 UIAP KEYERには4ピンのI2C OLEDを搭載可能です。  
 ch32funに含まれるSSD1306 OLEDライブラリにカナフォントを追加したものをlibフォルダに格納してあります。
 
+### uiap_message_keyer_for_ch32fun
+uiap_message_keyer_for_ch32funに固定メッセージ送信機能を追加したものです。メッセージはOLEDに表示されます。  
 
 ■ 変更履歴
 
