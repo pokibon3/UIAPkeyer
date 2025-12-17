@@ -51,7 +51,8 @@ void tim2_pwm_init( void )
 	RCC->APB1PCENR |= RCC_APB1Periph_TIM2;
     RCC->APB2PCENR |= RCC_APB2Periph_AFIO;
 
-    AFIO->PCFR1 |= AFIO_PCFR1_TIM2_REMAP_FULLREMAP;
+    AFIO->PCFR1 &= ~AFIO_PCFR1_TIM2_REMAP_FULLREMAP;
+	AFIO->PCFR1 |= AFIO_PCFR1_TIM2_REMAP_FULLREMAP;
 	// PC7 is T2CH2, 10MHz Output alt func, push-pull
 	GPIOC->CFGLR &= ~(0xf<<(4*7));
 	GPIOC->CFGLR |= (GPIO_Speed_10MHz | GPIO_CNF_OUT_PP_AF)<<(4*7);
@@ -83,17 +84,19 @@ void tim2_pwm_init( void )
     // set default duty cycle 50% for channel 1 (600Hz tone)
     TIM2->CH2CVR = 128;
 	// Enable TIM2
-	TIM2->CTLR1 |= TIM_CEN;
+	//TIM2->CTLR1 |= TIM_CEN;
 }
 
 // ===================== トーン制御 =====================
 void start_pwm() 
 {
+	AFIO->PCFR1 |= AFIO_PCFR1_TIM2_REMAP_FULLREMAP;
 	TIM2->CTLR1 |= TIM_CEN;
 }
 
 void stop_pwm() 
 {
+    AFIO->PCFR1 &= ~AFIO_PCFR1_TIM2_REMAP_FULLREMAP;
 	TIM2->CTLR1 &= ~TIM_CEN;
 }
 
